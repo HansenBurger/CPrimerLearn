@@ -3,7 +3,7 @@ using namespace std;
 
 int main(void)
 {
-    int carrots;
+    int carrots;  // 可以在首次使用前声明(对比C无限制)
     carrots = 25; // 使用变量之前需要先声明(开辟对应类型的内存空间)
     cout << "I have ";
     cout << carrots;              // 此时carrots就是变量(存储于中的整形数)

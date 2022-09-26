@@ -1,4 +1,4 @@
-# 2.1 (1) Enyering C++
+# 2.1 Enyering C++
 
 ## 2.1.1 程序框架
 
