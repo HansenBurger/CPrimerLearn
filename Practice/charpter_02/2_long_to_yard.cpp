@@ -7,5 +7,7 @@ int main(void)
     cout << "Enter the distance: ";
     cin >> length;
     int yard = 220 * length;
-    cout << length << " = " << yard << " yard." << endl;
+    cout << length << "long = ";
+    cout << yard << " yard." << endl;
+    return 0;
 }

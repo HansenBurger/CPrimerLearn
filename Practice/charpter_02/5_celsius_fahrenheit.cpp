@@ -1,20 +1,20 @@
 #include <iostream>
 
-double UnitSwitch(double);
+double Convert(double);
 
 int main(void)
 {
     using namespace std;
-    double celsius;
+    double c_degree;
     cout << "Please enter a Celsius value: ";
-    cin >> celsius;
-    double fahrenheit = UnitSwitch(celsius);
-    cout << celsius << " degrees Celsius is ";
-    cout << fahrenheit << " degrees Fahrenheit." << endl;
+    cin >> c_degree;
+    double f_degree = Convert(c_degree);
+    cout << c_degree << " degrees Celsius is ";
+    cout << f_degree << " degrees Fahrenheit." << endl;
     return 0;
 }
 
-double UnitSwitch(double degree)
+double Convert(double c_degree)
 {
-    return 1.8 * degree + 32.0;
+    return 1.8 * c_degree + 32.0;
 }
