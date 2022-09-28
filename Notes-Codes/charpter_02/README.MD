@@ -5,17 +5,17 @@
 cpp编写
 
 ```c++
-    int main(void)
-    {
-        return 0;
-    }
+int main(void)
+{
+    return 0;
+}
 ```
 
 shell下执行
 
 ```bash
-    g++ 1.cpp # generate .out file (compiling)
-    ./1.out # run executable file
+g++ 1.cpp # generate .out file (compiling)
+./1.out # run executable file
 ```
 
 程序两部分:
@@ -65,8 +65,8 @@ shell下执行
 程序开头
 
 ```c++
-    #include <iostream>
-    using namespace std;
+#include <iostream>
+using namespace std;
 ```
 
 ### 2.2.1 预处理器
@@ -84,15 +84,15 @@ using为**编译指令**， 名称空间是C++的特性， 目的是为了更好
 > 把产品封装在名称空间单元内
 
 ```c++
-    Microflop::wanda("go dancing");
-    Piscine::wanda("a fish named desire"); 
+Microflop::wanda("go dancing");
+Piscine::wanda("a fish named desire"); 
 ```
 
 不想在函数前加入命名空间， 则需要在头部加入这个编译指令using
 
 ```c++
-    using std::cout;
-    using std::endl;
+using std::cout;
+using std::endl;
 ```
 
 只开放命名空间中的几个函数， 用起来更好
@@ -167,7 +167,7 @@ C++存在有大量支持的类库， 方便使用
 sqrt(6.25) -> 函数调用
 
 ```c++
-    x = sqrt(6.25); // returns the value  2.5 and assigns it to x
+x = sqrt(6.25); // returns the value  2.5 and assigns it to x
 ```
 
 标准流程:
@@ -179,7 +179,7 @@ sqrt(6.25) -> 函数调用
 函数原型: 函数类型， 参数， 返回值
 
 ```c++
-    double sqrt(double);    // Not the function head
+double sqrt(double);    // Not the function head
 ```
 
 函数定义: 定义一段函数(函数的代码)， 不同于函数原型
@@ -189,7 +189,7 @@ sqrt(6.25) -> 函数调用
 补充: 对于无法定位的外部函数，命令行自动搜索
 
 ```shell
-    g++ sqrt.C -lm
+g++ sqrt.C -lm
 ```
 
 m: math
@@ -199,19 +199,19 @@ m: math
 1. 多参数函数
 
 ```c++
-    double pow(double, double);
+double pow(double, double);
 ```
 
 2. 无参数函数
 
 ```c++
-    int rand(void);
+int rand(void);
 ```
 
 3. 无返回函数
 
 ```c++
-    void bucks(double);
+void bucks(double);
 ```
 
 ### 2.4.3 自定义函数
