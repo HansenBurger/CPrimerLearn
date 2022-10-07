@@ -5,8 +5,8 @@ int main(void)
     using namespace std;
 
     int cheat = 42;
-    int waist = 0x42;
-    int inseam = 042;
+    int waist = 0x42; // 16进制
+    int inseam = 042; // 8进制
 
     cout << "cheat = " << cheat << " (42 in dec)." << endl;
 
