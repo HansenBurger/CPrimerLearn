@@ -29,6 +29,7 @@ using namespace std;
 ## 4.什么语句可以用来打印短语“Hello，world”，然后开始新的一行？
 
 答: 标准输出语句 √
+
 ```c++
 std::cout << "Hello, world" << std::endl;
 ```
@@ -38,6 +39,7 @@ std::cout << "Hello, world" << std::endl;
 ## 5.什么语句可以用来创建名为cheeses的整数变量？
 
 答: 变量声明语句 √
+
 ```c++
 int cheeses;
 ```
@@ -47,6 +49,7 @@ int cheeses;
 ## 6.什么语句可以用来将值32赋给变量cheeses？
 
 答: 赋值语句 √
+
 ```c++
 cheeses = 32;
 ```
@@ -56,15 +59,17 @@ cheeses = 32;
 ## 7.什么语句可以用来将从键盘输入的值读入变量cheeses中？
 
 答: 标准输入语句 √
+
 ```c++
 std::cin >> cheeses;
 ```
 
 > 参考答案: cin >> cheeses;
 
-## 8.什么语句可以用来打印“We have X varieties of cheese.”，其中X为变量cheeses的当前值。
+## 8.什么语句可以用来打印“We have X varieties of cheese.”，其中X为变量cheeses的当前值
 
 答: 标准输出语句 √
+
 ```c++
 std::cout << "We have " << cheeses << "varieties of cheese.";
 ```
@@ -91,7 +96,7 @@ int prune(void);
 
 > 参考答案: 当函数没有返回值时，void rattle(int n)
 
-## 11.假设您编写的main( )函数包含如下代码：
+## 11.假设您编写的main( )函数包含如下代码
 
 ```c++
     cout << "Please enter your PIN: ";
@@ -107,4 +112,4 @@ int prune(void);
 
 × 不完整
 
-> 参考答案: <br> 1) using namespace std; </br> 2) using std::cout; </br> 3) std::cout
+> 参考答案: </br> 1) using namespace std; </br> 2) using std::cout; </br> 3) std::cout
