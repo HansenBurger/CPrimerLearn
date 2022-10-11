@@ -12,22 +12,21 @@
 int main(void)
 {
     using namespace std;
+    const int Inch_per_ft = 12;
 
-    int h_ft;
-    double h_ic;
-    const double Ft_per_ich = 12.0; // 都是整型的话计算结果则是整型
+    int h_inch_in, h_ft_out, h_inch_out;
+    cout << "Enter your height in ich:__\b\b";
+    cin >> h_inch_in;
 
-    cout << "Enter your height in ft:__\b\b";
-    cin >> h_ft;
+    h_ft_out = h_inch_in / Inch_per_ft;
+    h_inch_out = h_inch_in % Inch_per_ft;
 
-    h_ic = h_ft / Ft_per_ich;
-
-    cout << "Your height " << h_ft << " ft";
-    cout << " = " << h_ic << " ich" << endl;
-
-    return 0;
+    cout << "Your height = " << h_ft_out << " ft ";
+    cout << h_inch_out << " inch." << endl;
 }
 ```
+
+> 注意读题，英尺(foot)，英寸(inch)
 
 ## 3.2
 
@@ -44,18 +43,19 @@ double BMI_count(double, double);
 int main(void)
 {
     using namespace std;
+    const int Inch_per_ft = 12;
     const double P_per_kg = 2.2;
-    const double Ft_per_ich = 12.0;
-    const double M_per_ft = 0.0254;
+    const double M_per_inch = 0.0254;
 
-    int h_ich, h_ft, w_p;
-    cout << "Enter your height in (ich ft): ";
-    cin >> h_ich >> h_ft;
+    int h_inch, h_ft;
+    double w_p;
+    cout << "Enter your height in (ft inch): ";
+    cin >> h_ft >> h_inch;
     cout << "Enter your weight in (pounds): ";
     cin >> w_p;
 
     double h_m, w_kg, bmi;
-    h_m = (h_ich * Ft_per_ich + h_ft) * M_per_ft;
+    h_m = (h_ft * Inch_per_ft + h_inch) * M_per_inch;
     w_kg = w_p / P_per_kg;
     bmi = BMI_count(h_m, w_kg);
 
@@ -229,6 +229,8 @@ int main(void)
     return 0;
 }
 ```
+
+> 注意读题，两种形式计算耗油量
 
 ## 3.7
 

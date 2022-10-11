@@ -3,18 +3,15 @@
 int main(void)
 {
     using namespace std;
+    const int Inch_per_ft = 12;
 
-    int h_ft;
-    double h_ic;
-    const double Ft_per_ich = 12.0; // 都是整型的话计算结果则是整型
+    int h_inch_in, h_ft_out, h_inch_out;
+    cout << "Enter your height in ich:__\b\b";
+    cin >> h_inch_in;
 
-    cout << "Enter your height in ft:__\b\b";
-    cin >> h_ft;
+    h_ft_out = h_inch_in / Inch_per_ft;
+    h_inch_out = h_inch_in % Inch_per_ft;
 
-    h_ic = h_ft / Ft_per_ich;
-
-    cout << "Your height " << h_ft << " ft";
-    cout << " = " << h_ic << " ich" << endl;
-
-    return 0;
+    cout << "Your height = " << h_ft_out << " ft ";
+    cout << h_inch_out << " inch." << endl;
 }

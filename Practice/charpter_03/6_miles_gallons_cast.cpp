@@ -3,20 +3,26 @@
 int main(void)
 {
     using namespace std;
-    const double Km_per_mi = 1.609344;
-    const double L_per_gal = 3.78541178;
 
     double dist_mi, fuel_gal;
-
     cout << "Enter the distance(mile) your car traveled: ";
     cin >> dist_mi;
     cout << "Enter the consumed fuel(gallon): ";
     cin >> fuel_gal;
 
-    double c_l_per_100_km;
-    c_l_per_100_km = 100.0 * (dist_mi * Km_per_mi) / (fuel_gal * L_per_gal);
+    double consume_gal_mi;
+    consume_gal_mi = dist_mi / fuel_gal;
+    cout << "Your car's fuel consumption : " << consume_gal_mi << " milles/gallon." << endl;
 
-    cout << "Your car's fuel consumption per 100 km: " << c_l_per_100_km << " L." << endl;
+    double dist_km, fuel_l;
+    cout << "Enter the distance(km) your car traveled: ";
+    cin >> dist_km;
+    cout << "Enter the consumed fuel(L): ";
+    cin >> fuel_l;
+
+    double consume_km_l;
+    consume_km_l = 100 * (fuel_l / dist_km);
+    cout << "Your car's fuel consumption : " << consume_km_l << " L/100km." << endl;
 
     return 0;
 }
