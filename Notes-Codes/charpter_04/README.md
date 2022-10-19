@@ -64,7 +64,7 @@ char s2[6] = {'W','o','r','l','d','\0'}
 char s1s2[11] = {'H','e','l','l','o','W','o','r','l','d','\0'}
 ```
 
-第一个字符串的空字符被第二个取代
+第一个字符串的空字符被第二个取代，不会添加空格，而是紧跟其后
 
 ### 4.2.2 数组中使用字符串
 
@@ -78,3 +78,56 @@ char s1s2[11] = {'H','e','l','l','o','W','o','r','l','d','\0'}
 1. "Alistair'\space'Dreeb'\Enter'"
 2. 遇到'\space'，将"Alistair"存入字符数组，"Dreeb'\Enter'"放入缓冲区
 3. 再次遇到输入，会接着从缓冲区读取
+
+而面向行的类成员函数有: getline()和get()
+
+#### (1) getline()
+
+```c++
+cin.getline(name, 20);
+```
+
+istream类的成员函数，\Enter作为输入的结尾，**但不保存到输入队列，将\Enter用'\0'替换**
+
+1. param1: 存储行的数组名
+2. param2: 读取的字符数
+
+#### (2) get()
+
+```c++
+cin.get(name, ArSize);
+cin.get(desert, ArSize); // error
+```
+
+istream类的成员函数，\Enter作为输入的结尾，**停止读取，将\Enter保留到输入队列**
+
+1. param1: 存储行的数组名
+2. param2: 读取的字符数
+
+为了解决第二次get读取直接从换行符开始导致输入为空，可以连续调用来读取\Enter，具体实现有两种方法:
+
+方法1:
+
+```c++
+cin.get(name, ArSize);
+cin.get();
+cin.get(desert, ArSize); // error
+```
+
+方法2:
+
+基于cin.get返回的也是cin对象
+
+```c++
+cin.get(name, ArSize).get();
+```
+
+#### (3) 两者区别
+
+1. 老式实现没有getline()
+2. get能够确定是因为数组满了而停止读取还是遇到了换行符(直接输出最后一个字符)
+3. getline简单，get便于检查
+
+### 4.2.4 混合输入
+
+cin本身也是将换行符保留在输入队列的，如果用getline和get则会导致字符串接收为空，需要用get()中的两种方法解决。
