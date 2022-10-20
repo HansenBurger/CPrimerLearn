@@ -131,3 +131,63 @@ cin.get(name, ArSize).get();
 ### 4.2.4 混合输入
 
 cin本身也是将换行符保留在输入队列的，如果用getline和get则会导致字符串接收为空，需要用get()中的两种方法解决。
+
+## 4.3 string 类
+
+string类使用起来比数组简单，同时提供了将字符串作为一种数据类型的表示方法。**string类也位于命名空间std当中**。
+
+参考程序: [7_string_class.cpp](Notes-Codes/charpter_04/7_string_class.cpp)
+
+string和字符数组的区别:
+
+1. 可以将string对象声明为**简单变量**，而不是数组
+2. 程序能够自动处理string的大小
+3. 使用string对象更方便，也更安全
+
+### 4.3.1 赋值-拼接-附加
+
+赋值: **数组不能赋值给数组**(数组名本身指代的是数组地址)，但string可以赋值给string。
+
+拼接: string对象可以用加法运算符，还可以用"+="将string添加到末尾。
+
+参考程序: [8_string_operation.cpp](Notes-Codes/charpter_04/8_string_operations.cpp)
+
+### 4.3.2 string类其他操作
+
+使用c-风格的字符串，可以使用cstring中的函数方法，有"strcpy"，"strcat"等方来实现前文所说的赋值，拼接和附加操作，但是**使用还是string类更方便简洁**
+
+参考程序: [9_c_string_func.cpp](Notes-Codes/charpter_04/9_c_string_func.cpp)
+
+### 4.3.3 string类I/O
+
+1. 对于一个string对象，cout处理时和c风格字符串一致
+2. 但读取一行时，句法不同
+
+参考程序: [10_string_getline.cpp](Notes-Codes/charpter_04/10_string_getline.cpp)
+
+#### (1) 初始化长度区别
+
+```c++
+char charr[20];
+cout << strlen(charr) << endl;
+```
+
+此时输出结果不是20，因为字符数组声明且不初始化，只有一个内存空间，且内部字符是随机的，**此时的长度是由内存空间什么时候出现空字符决定**。
+
+```c++
+string str;
+cout << str.size() << endl;
+```
+
+此时输出的结果是0，因为未初始化的string对象**长度自动为0**。
+
+#### (2) getline
+
+```c++
+string str;
+getline(cin, str)
+```
+
+string对象读取输入用的不是cin的成员函数，而是直接使用"getline"函数，从cin捕获输入并赋值给string对象，**string对象自动调整大小**。
+
+> 本质原因还是istream缺少对处理string类的方法，cin >> str成立，是基于string类的友元函数
