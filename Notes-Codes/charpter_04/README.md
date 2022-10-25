@@ -191,3 +191,168 @@ getline(cin, str)
 string对象读取输入用的不是cin的成员函数，而是直接使用"getline"函数，从cin捕获输入并赋值给string对象，**string对象自动调整大小**。
 
 > 本质原因还是istream缺少对处理string类的方法，cin >> str成立，是基于string类的友元函数
+
+## 4.4 结构简介
+
+数组可以存储多个元素，但不能存储多个数据类型。
+
+结构(可以视作自己创建的数据类型)是一种比数组更灵活的数据格式，因为同一个结构可以存储多种类型的数据。
+
+![struct_c++](https://i0.wp.com/coderhalt.com/wp-content/uploads/2021/08/word-image.png?resize=695%2C339&ssl=1)
+
+### 4.4.1 使用结构体
+
+定义结构体以后就可以创建结构体变量(c++中可以省略关键字struct):
+
+```c++
+struct coderHalt goose;
+coderHalt goose;
+```
+
+对声明的结构体变量进行赋值，不需要用 ";" 做分隔符号
+
+```c++
+goose = {
+    10,
+    'H'
+};
+```
+
+对于结构体内部的成员可以用 "." 来访问，"goose.ch" 就表示goose变量的ch成员，而ch的类型则是由结构体定义决定。
+
+参考程序: [11_struct_init.cpp](Notes-Codes/charpter_04/11_struct_init.cpp)
+
+> C++不提倡使用外部变量，但提倡使用外部结构声明。
+
+### 4.4.2 结构初始化
+
+c++11初始化方式(不推荐使用)
+
+```c++
+coderHalt dog {11, 'D'};
+coderHalt cat {}; // 依据类型空初始化
+```
+
+### 4.4.3 结构体内的成员类型
+
+参考程序: [12_struct_assign.cpp](Notes-Codes/charpter_04/12_struct_assign.cpp)
+
+1. 可以支持string类(string类在std内，需要在定义结构体之前使用命名空间，或者std::string)
+
+2. 结构体可以直接通过赋值操作赋值给另一个同类结构变量(不同于数组)
+
+3. 创建结构体变量虽然可以跟在结构体之后，**但不能再创建同类的结构体变量**，因为没有声明结构体，不推荐。
+
+### 4.4.4 结构体数组
+
+可以声明结构体类型的数组，同样，可以用访问数组的方式访问结构体数组，也可以用访问结构体成员的方式访问结构体数组的元素的成员。
+
+```c++
+codeHalt duck[100];
+```
+
+初始化结构体数组需要两个花括号，外部是用来存数组中的每个元素，内部则是用来存元素的结构体成员
+
+```c++
+codeHalt duck[2] = {
+    {0, 'A'},
+    {1, 'B'}
+};
+```
+
+参考程序: [13_struct_array.cpp](Notes-Codes/charpter_04/13_struct_array.cpp)
+
+### 4.4.5 结构体中的位字段
+
+创建硬件的**寄存器**的数据结构使用，确定位和字段
+
+## 4.5 共用体(联合体)
+
+共用体（union）是一种数据格式，它能够存储不同的数据类型，但只能同时存储其中的一种类型。
+
+![differ_in_union_struct](https://static.studytonight.com/c/images/union-and-structure-storage-comparison.gif)
+
+> union相当于抽屉，所有成员共用空间，每次只能存一个值(联合体的空间由支持最大空间的类型支持)，相当于对于同一个变量的不同形式。
+
+共用体的用途之一是，当数据项使用两种或更多种格式（但不会同时使用）时，可节省空间。
+
+参考程序: [14_union_init.cpp](Notes-Codes/charpter_04/14_union_init.cpp)
+
+### 4.5.1 共用体在结构体中
+
+union也可以用在结构体当中，有两种形式:
+
+### (1) 有成员变量名
+
+```c++
+struct widget
+{
+    union id
+    {
+        long id_num;
+        char id_char[20];
+    }id_val;
+}
+```
+
+可以通过连续调用访问结构体中共用体内的成员变量
+
+```c++
+widget prize;
+cout << prize.id_val.id_num;
+```
+
+### (2) 无成员变量名
+
+```c++
+struct widget
+{
+    union id
+    {
+        long id_num;
+        char id_char[20];
+    };
+}
+```
+
+可以直接调用结构体中共用体内的成员变量
+
+```c++
+widget prize;
+cout << prize.id_num;
+```
+
+## 4.6 枚举
+
+定义: enum代替const创建连续的符号常量，**默认用整数赋值**，从0开始。
+
+赋值:
+
+1. 枚举类型**只有赋值运算**，且只能同类赋值。
+2. 枚举量是整型，可被提升为int类型，但类型不能自动转换为枚举。
+3. 可以通过强制类型转换完成赋值(但如果超出枚举范围就会导致结果不确定)。
+
+目的: **为了更方便的定义符号常量**(const 需要每个都写)。
+
+### 4.6.1 设置枚举的值
+
+指定枚举类型的值也是可以的，但必为整型，如果指定一个，则是通过位置关系给其他变量自动赋值:
+
+```c++
+enum bits{one = 1, two = 2, seven = 7, eight};
+```
+
+也可以在枚举类型中创建多个相同的枚举量。
+
+### 4.6.2 枚举的范围
+
+不是枚举值，但在枚举定义范围内的取值依然是有效的:
+
+```c++
+myflag = bits(6);
+```
+
+枚举变量的上下限:
+
+1. 最大值的最小2的幂减1(max_bits = 8 - 1 = 7)
+2. 由最小值决定，默认是0，如果小于0则依据最大值的方法确定(min_bits = 0)
