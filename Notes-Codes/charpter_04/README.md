@@ -570,6 +570,62 @@ roses are red
 3. "s are red\n"本身就是一个字符串的**首地址**，cout处理他的方式同2
 4. 主要原因: 传递地址比所有字符相比减少工作量。
 
+参考程序: [21_pointer_str.cpp](Notes-Codes/charpter_04/21_pointer_str.cpp)
+
+strcpy 不会考虑字符串长度全复制，strncpy限定字符串长度的复制。
+
+### 4.8.4 使用new创建动态结构
+
+#### (1) 访问动态结构体内的成员变量
+
+对于动态结构体变量:
+
+```c++
+struct things
+{
+    int good;
+    int bad;
+}
+things grubnose = {3, 453};
+things * pt = &grubnose;
+```
+
+访问pt内的成员变量可以用(->)运算符
+
+```c++
+pt->good = grubnose.good;
+pt->bad = (*ps).bad;
+```
+
+参考程序: [22_new_struct.cpp](Notes-Codes/charpter_04/22_new_struct.cpp)
+
+#### (2) 根据输入动态分配内存(new,delete)
+
+1. new要和delete一一对应(最好在同一位置内)
+2. 释放类型要匹配(delete[] a;)
+3. 根据返回值类型决定函数类型(包括指针)
+
+参考程序: [23_new_delete.cpp](Notes-Codes/charpter_04/23_new_delete.cpp)
+
+### 4.8.5 自动存储、静态存储和动态存储
+
+#### (1) 自动存储
+
+1. 函数内部常规变量属于自动存储
+2. 调用时创建，调用结束释放
+3. 存在栈中，根据执行顺序加入，符合后进先出(LIFO)
+
+#### (2) 静态存储
+
+1. 全局变量输入静态存储
+2. 和动态的区别就在于程序运行周期的寿命
+
+#### (3) 动态存储
+
+1. 人为的选择创建和释放的时机
+2. 动态存储不随程序运行周期决定
+3. 管理内存复杂，需要避免内存泄露(没有调用delete，占用的内存空间仍然保留)
+
 ## 4.9 类型组合
 
 结构体声明和变量创建
@@ -611,61 +667,61 @@ trio[0].year = 2003
 创建结构体指针数组(结合律):
 
 ```c++
-const years_end * arp[3] = {&s_0, &s_1, &s_2};
+const years_end * arp[3] = {&s_0, &s_1, &s_2}; // 是一个指针数组，指针的类型为结构体
 std::cout << arp[1] -> year << std::end;
-
 ```
 
-参考程序: [21_pointer_str.cpp](Notes-Codes/charpter_04/21_pointer_str.cpp)
-
-strcpy 不会考虑字符串长度全复制，strncpy限定字符串长度的复制。
-
-### 4.8.4 使用new创建动态结构
-
-#### (1) 访问动态结构体内的成员变量
-
-对于动态结构体变量:
+指向指针的指针:
 
 ```c++
-struct things
-{
-    int good;
-    int bad;
-}
-things grubnose = {3, 453};
-things * pt = &grubnose;
+const years_end ** ppa = arp;
 ```
 
-访问pt内的成员变量可以用(->)运算符
+参考程序: [24_mix_type.cpp](Notes-Codes/charpter_04/24_mix_type.cpp)
+
+具体的映射流程可以参考下图:
+
+![struct_ptr_map](https://pic1.imgdb.cn/item/636e557c16f2c2beb153c427.png)
+
+## 4.10 数组替代品
+
+### 4.10.1 模板类vector
+
+1. 使用必须包含vector头文件
+2. vector包含在命名空间std内
+3. vector**长度可变**
 
 ```c++
-pt->good = grubnose.good;
-pt->bad = (*ps).bad;
+#include<vector>
+using namespace std;
+vector<int> vi; // 长度可变
+vector<double> vd(n); // 可以预设长度
 ```
 
-参考程序: [22_new_struct.cpp](Notes-Codes/charpter_04/22_new_struct.cpp)
+模板:
 
-#### (2) 根据输入动态分配内存(new,delete)
+vector\<typeName> vt (n_elem);
 
-1. new要和delete一一对应(最好在同一位置内)
-2. 释放类型要匹配(delete[] a;)
-3. 根据返回值类型决定函数类型(包括指针)
+### 4.10.2 模板类array
 
-### 4.8.5 自动存储、静态存储和动态存储
+1. 使用必须包含array头文件
+2. array包含在命名空间std内
+3. array对象**长度固定**
 
-#### (1) 自动存储
+```c++
+#include <array>
+using namespace std;
+array<int, 5> ai;
+array<doubel, 4> ad = {1.2, 2.1, 3.43, 4.3};
+```
 
-1. 函数内部常规变量属于自动存储
-2. 调用时创建，调用结束释放
-3. 存在栈中，根据执行顺序加入，符合后进先出(LIFO)
+模板:
 
-#### (2) 静态存储
+array\<typeName, n_elem\> arr;
 
-1. 全局变量输入静态存储
-2. 和动态的区别就在于程序运行周期的寿命
+### 4.10.3 数组,vector,array
 
-#### (3) 动态存储
-
-1. 人为的选择创建和释放的时机
-2. 动态存储不随程序运行周期决定
-3. 管理内存复杂，需要避免内存泄露(没有调用delete，占用的内存空间仍然保留)
+1. 三者都可以用"\[i]"查找第i个元素
+2. 三者都不会检查索引**越界**
+3. vector和array可以用arr.at()检查，但会增加运行时间
+4. vector使用内存的堆，而数组和array使用时栈
