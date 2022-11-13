@@ -725,3 +725,5 @@ array\<typeName, n_elem\> arr;
 2. 三者都不会检查索引**越界**
 3. vector和array可以用arr.at()检查，但会增加运行时间
 4. vector使用内存的堆，而数组和array使用时栈
+
+参考程序: [25_choice.cpp](Notes-Codes/charpter_04/25_choice.cpp)
