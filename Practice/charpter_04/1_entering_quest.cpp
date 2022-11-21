@@ -10,12 +10,13 @@ int main(void)
     char grade, f_name[Str_len], l_name[Str_len];
 
     cout << "What is your first name? ";
-    cin.getline(f_name, Str_len);
+    cin.getline(f_name, Str_len); // getline需要两个参数
     cout << "What is your last name? ";
     cin.getline(l_name, Str_len);
     cout << "What letter grad do you deserve? ";
     cin >> grade;
-    grade = (char)((int)grade + 1);
+    // char本身也是整型，可以进行加法运算
+    grade = (char)((int)grade + 1); // char (grade + 1)
     cout << "What is your age? ";
     cin >> age;
 

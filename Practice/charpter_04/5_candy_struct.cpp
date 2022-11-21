@@ -4,7 +4,7 @@ struct CandyBar
 {
     char brand[20];
     double weight;
-    int kcal;
+    unsigned int kcal; // 卡路里没有负值
 };
 
 int main(void)

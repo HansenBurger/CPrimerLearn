@@ -31,12 +31,13 @@ int main(void)
     char grade, f_name[Str_len], l_name[Str_len];
 
     cout << "What is your first name? ";
-    cin.getline(f_name, Str_len);
+    cin.getline(f_name, Str_len); // getline需要两个参数
     cout << "What is your last name? ";
     cin.getline(l_name, Str_len);
     cout << "What letter grad do you deserve? ";
     cin >> grade;
-    grade = (char)((int)grade + 1);
+    // char本身也是整型，可以进行加法运算
+    grade = (char)((int)grade + 1); // char (grade + 1)
     cout << "What is your age? ";
     cin >> age;
 
@@ -47,6 +48,8 @@ int main(void)
     return 0;
 }
 ```
+
+> char也是整型，可以加法运算，但是直接输出会改变类型，需要强制类型转换
 
 ## 4.2
 
@@ -61,27 +64,20 @@ int main(void)
 int main(void)
 {
     using namespace std;
-    int age;
-    char grade;
-    string f_name, l_name;
 
-    cout << "What is your first name? ";
-    getline(cin, f_name);
-    cout << "What is your last name? ";
-    getline(cin, l_name);
-    cout << "What letter grad do you deserve? ";
-    cin >> grade;
-    grade = (char)((int)grade + 1);
-    cout << "What is your age? ";
-    cin >> age;
+    string name, dessert;
 
-    cout << "Name: " << l_name << ", " << f_name << endl;
-    cout << "Grade: " << grade << endl;
-    cout << "Age: " << age << endl;
+    cout << "Enter your name: " << endl;
+    getline(cin, name); //  对于string类只需要指定捕获的方式和存放的对象
+    cout << "Enter your favorite dessert: " << endl;
+    getline(cin, dessert);
 
-    return 0;
+    cout << "I have some delicious " << dessert;
+    cout << " for " << name << endl;
 }
 ```
+
+> **注意读题，4.4**，注意string类和char数组的区别: </br> 1) string类不需要指定长度 </br> 2) string用getline而不是cin.getline
 
 ## 4.3
 
@@ -116,6 +112,16 @@ int main(void)
 
     return 0;
 }
+```
+
+> 可以创建一个字符串对象full_name，用来**拷贝**last_name，并且在之后按需求拼接
+
+参考:
+
+```c++
+strcpy(full_name, last_name);
+strcat(full_name, ", ");
+strcat(full_name, first_name);
 ```
 
 ## 4.4
@@ -163,7 +169,7 @@ struct CandyBar
 {
     char brand[20];
     double weight;
-    int kcal;
+    unsigned int kcal; // 卡路里没有负值
 };
 
 int main(void)
@@ -213,6 +219,8 @@ int main(void)
     return 0;
 }
 ```
+
+> 结构体数组的初始化，{{},{},{}}
 
 ## 4.7
 
@@ -290,10 +298,13 @@ int main(void)
     cout << "Pizza's Diameter: " << *(pizza_->diameter) << endl;
     cout << "Pizza's Weight: " << *(pizza_->weight) << endl;
 
+    delete pizza_;
+
     return 0;
 }
-
 ```
+
+> new返回的永远是对应类型的地址(比如这里是结构体的地址)，*ptr就转为结构体变量。cin是**不保存空白字符的**，而getline则会直接从队列中读取没被保存的空白字符。</br> new 和 delete 一定要成对出现。
 
 ## 4.9
 
@@ -336,6 +347,8 @@ int main(void)
     return 0;
 }
 ```
+
+> 数组名就是指针，加几代表跨过几个元素，得到的也是地址，提取结构体地址的成员可以用"->"
 
 ## 4.10
 
