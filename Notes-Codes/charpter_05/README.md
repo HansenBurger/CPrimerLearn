@@ -190,3 +190,78 @@ pt = pt + 1;
 2. string和字符串常量，string和c风格字符串也满足条件1
 3. 比c风格的字符串比较更加简洁直观
 4. 和之前循环不一样，不依赖于循环次数(while也能实现)
+
+参考程序: [13_comp_str_string.cpp](Notes-Codes/charpter_05/13_comp_str_string.cpp)
+
+## 5.2 while循环
+
+while循环没有初始化和更新部分，只有测试条件和循环体
+
+参考程序: [14_while_print_char.cpp](Notes-Codes/charpter_05/14_while_print_char.cpp)
+
+> **注意:** 字符数组中每个元素本身就可以做判断条件，出现'\0'就等于False，但是string类不用'\0'标记字符串结尾
+
+### 5.2.1 for与while
+
+相同点:
+
+1. for循环和while循环之间可以互相转换，把for循环的init-state放在while外，update-state放在body内。(for循环也可以省略初始化和update-state)
+2. for循环和while循环对于多行body都需要放入花括号，**不由缩进决定**
+
+差异点:
+
+1. while(1) 等价于 for( ; ; )
+2. for可以初始化局部变量但while不行
+3. for通常用于可计数循环，**while通常用于无记数循环**
+4. continue在for中执行会转到update-state，而while循环中则根据continue在body中的位置决定
+
+设计循环的原则:
+
+1. 指定循环终止的条件
+2. 在首次测试之前初始化条件
+3. 在条件被再次测试前更新条件
+
+> 循环后加入分号";"代表循环体为**空**
+
+### 5.2.2 编写延时循环
+
+可以用while让系统等待，程序如下:
+
+```c++
+long wait = 0;
+while (wait < 10000)
+    wait++;
+```
+
+但等待的时间主要取决于计算机处理器的运算速度，可以用clock()返回**系统时间**来控制延迟，即
+
+```c++
+clock_t = sec * CLOCK_PER_SEC
+```
+
+其中CLOCK_PER_SEC是计算机**每秒包含的系统时间单位**，而clock_t是**int**的别名，为了更直观的表示变量，可以用typedef定义别名(建议不用define，**作为别名定义的唯一方法**)，即
+
+```c++
+typedef typeName aliaName;
+```
+
+也可以用来声明指针的别名，即
+
+```c++
+typedef char * bytte_pointer;
+```
+
+别名的优势:
+
+1. 更直观的表示变量
+2. 益于代码的移植
+
+参考程序: [15_while_delay.cpp](Notes-Codes/charpter_05/14_while_delay.cpp)
+
+## 5.3 do while循环
+
+多数时候用for和while循环，即在执行前先判断，但对于**需要用户输入的**，需要有输入为先，推荐用do while。
+
+参考程序: [16_do_while.cpp](Notes-Codes/charpter_05/16_do_while.cpp)
+
+> 编写清晰、容易理解的代码比使用语言的晦涩特性来显示自己的能力更为有用
