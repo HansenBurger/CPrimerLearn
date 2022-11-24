@@ -265,3 +265,146 @@ typedef char * bytte_pointer;
 参考程序: [16_do_while.cpp](Notes-Codes/charpter_05/16_do_while.cpp)
 
 > 编写清晰、容易理解的代码比使用语言的晦涩特性来显示自己的能力更为有用
+
+## 5.4 基于范围的for循环(c++11)
+
+这个特性主要用于16章中的**容器类**，其中只遍历数组中的元素可以用:
+
+```c++
+double prices[5] = {4.99, 10.99, 6.87, 6.87, 7.99, 8.49}
+for (double x:prices)
+    cout << x << endl;
+```
+
+修改数组中的元素可以用:
+
+```c++
+for (double &x : prices)
+    x = x * 0.80;
+```
+
+其中"\&"表示x为引用变量，此为运算符重载的一种方法，还可以基于初始化列表:
+
+```c++
+for (int x:{3,5,2,8,6})
+    cout << x << " ";
+cout << '\n';
+```
+
+## 5.5 循环和文本输入
+
+### 5.5.1 原始cin进行输入
+
+循环读取键盘输入，用**哨兵字符**作为停止标记，cin读取字符时会跳过**空白字符**。
+
+参考程序: [17_text_loop_1.cpp](Notes-Codes/charpter_05/17_text_loop_1.cpp)
+
+> 需要注意，这里循环输入是指从用户的**输入队列**中循环读取，也就是说直到按下回车，队列中的字符才会发给程序
+
+### 5.5.2 cin.get(char)
+
+cin.get可以用来捕获被跳过的空白字符(包括空格和回车)。
+
+参考程序: [18_text_loop_2.cpp](Notes-Codes/charpter_05/18_text_loop_2.cpp)
+
+> 需要注意，c中传递到函数中的变量不会修改他的值本身，而是修改拷贝，但cin.get()中参数被声明为**引用类型**，可以修改参数值
+
+### 5.5.3 使用哪一个cin.get()(函数重载)
+
+存在这样的情况:
+
+```c++
+cin.get(name, ArSize).get();
+cin.get(ch);
+```
+
+对于可以同一个函数可以接收多种参数的情况，是**运算符重载**，即多个同名函数，但其输入参数不同，**就可以有多种版本**。
+
+### 5.5.4 文件尾条件
+
+EOF: 检测文本和文件，可以用ctrl+z模拟EOF
+
+当检测到EOF，cin会将(**eofbit,failbit**)设置为1，可以用cin.eof和fail函数来检测(eof为true，反之false)。
+
+win中的EOF为ctrl+z，而linux环境中为ctrl+d。
+
+参考程序: [19_text_loop_3.cpp](Notes-Codes/charpter_05/19_text_loop_3.cpp)
+
+要点:
+
+1. EOF检测对于文本读取来说没问题，但对于键盘输入而言，可能会**结束循环**，可以用cin.clear()清楚EOF标记
+2. cin.get()返回的也是cin对象
+3. 程序可以对cin对象进行true/false判断，因此cin.get(ch)本身可以作为循环的test-statement
+
+```c++
+while(cin.get(ch));
+```
+
+## 5.6 嵌套循环和二维数组
+
+使用下标访问二维数组可以参考:
+
+![2D_Array](https://media.geeksforgeeks.org/wp-content/uploads/two-d.png)
+
+```c++
+for(int row = 0; row < 4; row++)
+{
+    for(int col = 0; col < 5; ++col)
+        cout << maxtemps[row][col] << "\t";
+    cout << endl;
+}
+```
+
+### 5.6.1 初始化二维数组
+
+初始化二维数组可以参考一维数组的方法:
+
+```c++
+int maxtemps[2][3] = 
+{
+    {0, 1, 0},
+    {1, 0, 1}
+};
+```
+
+### 5.6.2 使用二维数组(字符串数组)
+
+初始化字符串数组的三种方法
+
+1.声明字符指针数组(此时指针可以指向字符串的首地址)
+
+```c++
+const char * arr[3] = {
+    "AAA",
+    "BBB",
+    "CCC"
+}
+```
+
+初始化中如果都是字符串常量，不修改，需要增加const，避免编译报错
+
+2.声明二维字符数组
+
+```c++
+const char arr[3][20] = {
+    "AAA",
+    "BBB",
+    "CCC"
+}
+```
+
+这种方法需要指定字符串的长度，可能会浪费，可能会不够，不推荐用
+
+3.声明string类数组
+
+```c++
+std::string arr[3] = {
+    "AAA",
+    "BBB",
+    "CCC"
+}
+```
+
+string类，可以不添加const用字符串常量初始化，也不会报错。
+
+参考程序: [20_2d_array.cpp](Notes-Codes/charpter_05/20_2d_array.cpp)
