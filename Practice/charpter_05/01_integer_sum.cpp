@@ -10,5 +10,12 @@ int main(void)
     cin >> i_start;
     cout << "Integer 2: ";
     cin >> i_end;
+
+    int sum = 0;
+    for (int i = i_start; i <= i_end; i++)
+        sum += i;
+
+    cout << "Sum value: " << sum << endl;
+
     return 0;
 }
