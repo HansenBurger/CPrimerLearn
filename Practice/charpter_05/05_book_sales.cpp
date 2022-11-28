@@ -19,6 +19,7 @@ int main(void)
         "October",
         "November",
         "December"};
+    // string类对象可以直接声明string数组
 
     int *sales = new int[ArSize];
 

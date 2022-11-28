@@ -14,7 +14,8 @@ int main(void)
     while (strcmp(word, "done"))
     {
         sum++;
-        cin >> word;
+        cin >> word; // 实际cin>>读取 " aaa "得到的结果也是aaa，从第一个不是空白字符的开始
+        cin.get();
     }
     cout << "your entered a total of " << sum << " words" << endl;
 

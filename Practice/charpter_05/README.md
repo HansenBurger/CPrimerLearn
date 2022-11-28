@@ -130,6 +130,8 @@ int main(void)
 }
 ```
 
+> **注意:** 第一年如果考虑在内，应该使用while循环
+
 ## 5.5
 
 题: 假设要销售《C++ For Fools》一书。请编写一个程序，输入全年中每个月的销售量（图书数量，而不是销售额）。程序通过循环，使用初始化为月份字符串的char *数组（或string对象数组）逐月进行提示，并将输入的数据储存在一个int数组中。然后，程序计算数组中各元素的总数，并报告这一年的销售情况
@@ -158,6 +160,7 @@ int main(void)
         "October",
         "November",
         "December"};
+    // string类对象可以直接声明string数组
 
     int *sales = new int[ArSize];
 
@@ -232,6 +235,8 @@ int main(void)
 }
 ```
 
+> new二维数组比较麻烦
+
 ## 5.7
 
 题: 设计一个名为car的结构，用它存储下述有关汽车的信息：生产商（存储在字符数组或string对象中的字符串）、生产年份（整数）。编写一个程序，向用户询问有多少辆汽车。随后，程序使用new来创建一个由相应数量的car结构组成的动态数组。接下来，程序提示用户输入每辆车的生产商（可能由多个单词组成）和年份信息。请注意，这需要特别小心，因为它将交替读取数值和字符串（参见第4章）。最后，程序将显示每个结构的内容。该程序的运行情况如下：
@@ -289,6 +294,8 @@ int main(void)
 }
 ```
 
+> 配合交替读取数字和字符串，可以用cin.get()读取队列里的blank字符
+
 ## 5.8
 
 题: 编写一个程序，它使用一个char数组和循环来每次读取一个单词，直到用户输入done为止。随后，该程序指出用户输入了多少个单词（不包括done在内）。
@@ -323,13 +330,16 @@ int main(void)
     while (strcmp(word, "done"))
     {
         sum++;
-        cin >> word;
+        cin >> word; // 实际cin>>读取 " aaa "得到的结果也是aaa，从第一个不是空白字符的开始
+        cin.get();
     }
     cout << "your entered a total of " << sum << " words" << endl;
 
     return 0;
 }
 ```
+
+> (1) cin >> word读取完，可以用cin.get()读取blank，但是实际调试过程不影响结果，因为cin>>不会读取队列里的空白字符。</br> (2) 如果用do while 循环
 
 ## 5.9
 
@@ -378,4 +388,25 @@ Enter number of rows: 5
 答:
 
 ```c++
+#include <iostream>
+
+int main(void)
+{
+    using namespace std;
+    int n;
+    cout << "Enter number of rows: ";
+    cin >> n;
+
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n - 1 - i; j++)
+            cout << '.';
+        for (int j = n - 1 - i; j < n; j++)
+            cout << '*';
+        cout << endl;
+    }
+    return 0;
+}
 ```
+
+> 点随着行数增加递减，星随着行数增加递增，两个循环
