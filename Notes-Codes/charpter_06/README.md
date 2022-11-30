@@ -119,3 +119,88 @@ a >= 100 && b <= 150;
 3. 判断标点符号: ispunct()
 
 参考程序: [08_cctype.cpp](Notes-Codes/charpter_06/08_cctype.cpp)
+
+## 6.4 条件运算符
+
+通用格式: expression1 ? expression2 : expression3
+
+输出结果: exp_1真，输出exp_2；exp_1假，输出exp_3
+
+参考程序: [09_condition_choose.cpp](Notes-Codes/charpter_06/09_condition_choose.cpp)
+
+使用建议: 简单关系，条件简单，用条件表达式；多种情况，判断复杂，用if/else。
+
+## 6.5 switch语句
+
+通用格式:
+
+```c++
+switch(integer-expression)
+{
+    case label1: statement(s)
+    case label2: statement(s)
+    case label4: statement(s)
+    default: statement(s)
+}
+```
+
+关键点:
+
+1. 其中integer-exp必为整型表达式，label也是整型内
+2. 对于任何都不满足的会转到default，**default非必要**；如果没有default，都不满足就结束switch。
+3. 执行完指定的case不会跳出switch，**除非增加break**。
+
+参考程序: [10_switch_report.cpp](Notes-Codes/charpter_06/10_switch_report.cpp)
+
+### 6.5.1 将枚举量作为标签变量
+
+case的label需要常量，枚举量也是等效的。
+
+参考程序: [11_enum_switch.cpp](Notes-Codes/charpter_06/11_enum_switch.cpp)
+
+### 6.5.2 switch和ifelse
+
+1. ifelse更通用，适合取值范围的选择(浮点型，分类不多)
+2. 对于选项超过两个，且选项都是整型的任务来说，switch**效率更高**
+
+> 如果既可以使用if else if语句，也可以使用switch语句，则当选项不少于3个时，应使用switch语句
+
+## 6.6 break和continue语句
+
+break跳出循环，continue结束本次循环，具体参考:
+
+![break_continue](https://i.ytimg.com/vi/UUaObrE-Ypw/maxresdefault.jpg)
+
+> 注意: continue对于for循环会直接**跳到更新表达式**，对于while循环会直接**跳到测试表达式**。所以需要检查continue之前是否经过更新表达式。
+
+参考程序: [12_break_continue.cpp](Notes-Codes/charpter_06/12_break_continue.cpp)
+
+**禁用goto语句！**
+
+## 6.7 读取数字循环
+
+读取数字中输入字母，会出现类型不匹配，此时:
+
+1. n值保持不变(没有初始化默认0?)
+2. 不匹配的输入留在输入队列
+3. cin对象中的一个错误标记被设置
+4. 对cin方法的调用将返回false(转换bool型)
+
+此时**cin的读取输入功能会被禁用**，解决步骤:
+
+1. cin.clear()，重置当前cin的状态
+2. while循环用cin.get()读取掉队列中错误的输入
+3. 提示用户再次输入
+
+用程序表示即:
+
+```c++
+cin.clear();
+while(cin.get() != '\n');
+```
+
+参考程序: [13_cin_clear.cpp](Notes-Codes/charpter_06/13_cin_clear.cpp)
+
+参考程序: [14_cin_count_fish.cpp](Notes-Codes/charpter_06/14_cin_count_fish.cpp)
+
+参考程序: [15_cin_count_golf.cpp](Notes-Codes/charpter_06/15_cin_count_golf.cpp)
