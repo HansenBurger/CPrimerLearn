@@ -280,6 +280,8 @@ inFile >> value;
 inFile.close();
 ```
 
+参考程序: [17_read_a_file.cpp](Notes-Codes/charpter_06/17_read_a_file.cpp)
+
 需要注意的是，和写入文本不同，读取文本需要注意**文件是否能够打开**和**读取值的有效性**
 
 文件能否打开可以使用ifstream类的is_open()函数，不能打开退出程序可以写成如下形式:
