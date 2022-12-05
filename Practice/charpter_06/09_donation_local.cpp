@@ -22,13 +22,18 @@ int main(void)
     int n;
     inFile >> n;
     inFile.get();
+    if (n <= 0) // 遇到n不满足，直接退出
+        exit(EXIT_FAILURE);
 
     donor *donors = new donor[n];
+    // 用while需要满足，不是eof且读取的i小于n
     for (int i = 0; i < n; i++)
     {
 
         getline(inFile, (donors + i)->name);
+        cout << "Read name: " << donors[i].name << endl;
         inFile >> (donors + i)->money;
+        cout << "Donation: " << donors[i].money << endl;
         inFile.get();
     }
 

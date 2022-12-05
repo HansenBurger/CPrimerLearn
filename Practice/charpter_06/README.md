@@ -4,6 +4,8 @@
 
 题: 编写一个程序，读取键盘输入，直到遇到@符号为止，并回显输入（数字除外），同时将大写字符转换为小写，将小写字符转换为大写（别忘了cctype函数系列）
 
+> 注意读题：回显输入**数字除外**。
+
 答:
 
 ```c++
@@ -15,11 +17,15 @@ int main(void)
     using namespace std;
 
     char ch;
+    cout << "Please enter characters:" << endl;
+
     while ((cin.get(ch)) && (ch != '@'))
     {
-        if (islower(ch))
+        if (isdigit(ch))
+            continue;
+        else if (islower(ch))
             ch = toupper(ch);
-        else if (isupper(ch))
+        else
             ch = tolower(ch);
         cout << ch;
     }
@@ -32,7 +38,9 @@ int main(void)
 
 题: 编写一个程序，最多将10个donation值读入到一个double数组中（如果您愿意，也可使用模板类array）。程序遇到非数字输入时将结束输入，并报告这些数字的平均值以及数组中有多少个数字大于平均值。
 
-答():
+> 输入要同时满足是数字和**不超过模板类长度**。
+
+答:
 
 ```c++
 #include <iostream>
@@ -49,8 +57,9 @@ int main(void)
 
     cout << "Enter the donations(not more than " << ArrSize << "): " << endl;
 
-    while (cin >> donations[ind])
-        ++ind;
+    // 需要同时满足输入有效和长度有效
+    while ((cin >> donations[ind++]) && (ind < ArrSize))
+        ;   // 小技巧，可以把后自加放在cin>>内，只有cin执行完才自加
 
     for (int i = 0; i < ind; i++)
         sum += donations[i];
@@ -96,7 +105,7 @@ int main(void)
     const char *prefix = "A maple is a ";
     cout << "Please enter one of the following choices:" << endl;
     cout << "c) carnivore\t p) pianist" << endl;
-    cout << "t) tree\t\tf g) game" << endl;
+    cout << "t) tree\t\t g) game" << endl;
 
     while (cin >> ch)
     {
@@ -177,13 +186,15 @@ Next choice: q
 Bye!
 ```
 
+> 注意:</br>1) 结构体数组长度和初始化长度可以**不等**(对于复合类型来说，最好是确定地长度)</br>2) menu可以单独写个showmenu函数</br>3) 求struct数组的长度，不能直接用sizeof，**只会得到指针的大小**，需要用整体的sizeof除以每个元素的sizeof，计算大小。</br>4) **sizeof不是函数**，只有1. sizeof unary-expression，2.sizeof ( type-name )两种形式
+
 答:
 
 ```c++
 #include <iostream>
 
-const int BopN = 5;
 const int strsize = 30;
+using namespace std;
 
 // Benevolent Order of Programmers name structure
 struct bop
@@ -194,41 +205,42 @@ struct bop
     int preference;         // 0 = fullname, 1 = title, 2 = bopname
 };
 
+void showmenu(void);
+
 int main(void)
 {
-    using namespace std;
-    char choice;
 
-    bop bopmanbers[BopN] = {
+    char choice;
+    showmenu();
+    // 结构体数组不一定要和初始化长度相等
+    bop bopmanbers[] = {
         {"Wimp Macho", "Engnieer", "WM", 0},
         {"Raki Rhodes", "Junior Programmer", "RR", 1},
         {"Celia Laiter", "Data Engineer", "MIPS", 2},
         {"Hoppy Hipman", "Analyst Trainee", "HH", 1},
         {"Pat Hand", "Programmer", "LOOPY", 2}};
 
-    cout << "Benevolent Order of Programmers Report" << endl;
-    cout << "a. display by name\tb. display by title" << endl;
-    cout << "c. display by bopname\td. display by preference" << endl;
-    cout << "Enter your choice: ";
+    // 得到结构体数组地长度，通过先sizeof数组指针地长度，再除以每个元素地长度
+    int bop_size = sizeof(bopmanbers) / sizeof(bopmanbers[0]);
 
     while ((cin >> choice) && (choice != 'q'))
     {
         switch (choice)
         {
         case 'a':
-            for (int i = 0; i < BopN; i++)
+            for (int i = 0; i < bop_size; i++)
                 cout << bopmanbers[i].fullname << endl;
             break;
         case 'b':
-            for (int i = 0; i < BopN; i++)
+            for (int i = 0; i < bop_size; i++)
                 cout << bopmanbers[i].title << endl;
             break;
         case 'c':
-            for (int i = 0; i < BopN; i++)
+            for (int i = 0; i < bop_size; i++)
                 cout << bopmanbers[i].bopname << endl;
             break;
         case 'd':
-            for (int i = 0; i < BopN; i++)
+            for (int i = 0; i < bop_size; i++)
                 switch (bopmanbers[i].preference)
                 {
                 case 0:
@@ -253,6 +265,14 @@ int main(void)
 
     cout << "Bye!" << endl;
     return 0;
+}
+
+void showmenu(void)
+{
+    cout << "Benevolent Order of Programmers Report" << endl;
+    cout << "a. display by name\tb. display by title" << endl;
+    cout << "c. display by bopname\td. display by preference" << endl;
+    cout << "Enter your choice: ";
 }
 ```
 
@@ -329,6 +349,7 @@ int main(void)
     donor *donors = new donor[n];
     for (int i = 0; i < n; i++)
     {
+        cout << "Donor #" << i + 1 << ": " << endl;
         cout << "Donor's name: ";
         getline(cin, (donors + i)->name); // 字符和数字混合输入注意捕获队列中空白字符
         cout << "Donor's donation: ";
@@ -378,6 +399,8 @@ quiet across 15 meters of lawn. q
 4 words beginning with consonants
 2 otherss
 ```
+
+> 也可以用string实现，直接string != "q"判断
 
 答:
 
@@ -440,6 +463,64 @@ int main(void)
 
 题: 编写一个程序，它打开一个文件文件，逐个字符地读取该文件，直到到达文件末尾，然后指出该文件中包含多少个字符。
 
+> 用**eof**判断文件结尾，**不需要要求文件末尾添加空白字符**，需要注意空白字符不算在eof内。
+
+答:
+
+```c++
+#include <fstream>
+#include <iostream>
+#include <stdlib.h>
+
+using namespace std;
+
+int main(void)
+{
+
+    ifstream inFile;
+    const char *file_loc = "./Practice/charpter_06/tmp/test.txt";
+    inFile.open(file_loc);
+    if (!inFile.is_open())
+    {
+        cout << "Error in opening file!" << endl;
+        exit(EXIT_FAILURE);
+    }
+    int n = 0;
+    char ch;
+    // while (!inFile.eof())
+    // {
+    //     inFile >> ch;
+    //     n++;
+    // }
+    while ((inFile >> ch) && !inFile.fail())
+    {
+        ++n;
+    }
+    cout << "This file totally have " << n << " characters." << endl;
+    inFile.close();
+
+    return 0;
+}
+```
+
+## 6.9
+
+题: 完成编程练习6，但从文件中读取所需的信息。该文件的第一项应为捐款人数，余下的内容应为成对的行。在每一对中，第一行为捐款人姓名，第二行为捐款数额。即该文件类似于下面：
+
+```cmd
+4
+Sam Stone
+2000
+Freida Flass
+100500
+Tammy Tubbs
+5000
+Rich Raptor
+55000
+```
+
+> 注意数字和字符串交替读取，**用.get()读取队列空白字符**
+
 答:
 
 ```c++
@@ -467,13 +548,18 @@ int main(void)
     int n;
     inFile >> n;
     inFile.get();
+    if (n <= 0) // 遇到n不满足，直接退出
+        exit(EXIT_FAILURE);
 
     donor *donors = new donor[n];
+    // 用while需要满足，不是eof且读取的i小于n
     for (int i = 0; i < n; i++)
     {
 
         getline(inFile, (donors + i)->name);
+        cout << "Read name: " << donors[i].name << endl;
         inFile >> (donors + i)->money;
+        cout << "Donation: " << donors[i].money << endl;
         inFile.get();
     }
 

@@ -7,7 +7,7 @@ int main(void)
     const char *prefix = "A maple is a ";
     cout << "Please enter one of the following choices:" << endl;
     cout << "c) carnivore\t p) pianist" << endl;
-    cout << "t) tree\t\tf g) game" << endl;
+    cout << "t) tree\t\t g) game" << endl;
 
     while (cin >> ch)
     {

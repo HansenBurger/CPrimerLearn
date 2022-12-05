@@ -1,5 +1,5 @@
-#include <iostream>
 #include <fstream>
+#include <iostream>
 #include <stdlib.h>
 
 using namespace std;
@@ -17,6 +17,11 @@ int main(void)
     }
     int n = 0;
     char ch;
+    // while (!inFile.eof())
+    // {
+    //     inFile >> ch;
+    //     n++;
+    // }
     while ((inFile >> ch) && !inFile.fail())
     {
         ++n;

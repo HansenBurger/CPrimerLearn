@@ -19,6 +19,7 @@ int main(void)
     donor *donors = new donor[n];
     for (int i = 0; i < n; i++)
     {
+        cout << "Donor #" << i + 1 << ": " << endl;
         cout << "Donor's name: ";
         getline(cin, (donors + i)->name); // 字符和数字混合输入注意捕获队列中空白字符
         cout << "Donor's donation: ";

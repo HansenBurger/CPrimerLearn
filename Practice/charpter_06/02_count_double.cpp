@@ -12,8 +12,9 @@ int main(void)
 
     cout << "Enter the donations(not more than " << ArrSize << "): " << endl;
 
-    while (cin >> donations[ind])
-        ++ind;
+    // 需要同时满足输入有效和长度有效
+    while ((cin >> donations[ind++]) && (ind < ArrSize))
+        ;
 
     for (int i = 0; i < ind; i++)
         sum += donations[i];
